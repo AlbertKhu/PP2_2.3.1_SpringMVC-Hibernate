@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-@Transactional
+//@Transactional
 public class UserDaoImpl implements UserDao {
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,15 +25,14 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        User user = entityManager.find(User.class, id);
-        return Optional.ofNullable(user);
+    public User findById(Long id) {
+        return entityManager.find(User.class, id);
     }
 
     @Override
     public void deleteUser(Long id) {
-        Optional<User> userById = findById(id);
-        userById.ifPresent(user -> entityManager.remove(user));
+        User user = findById(id);
+        entityManager.remove(user);
     }
 
     @Override

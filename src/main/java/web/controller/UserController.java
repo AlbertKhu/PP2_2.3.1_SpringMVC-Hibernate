@@ -31,7 +31,6 @@ public class UserController {
 
     @GetMapping("/new")
     public String createUserForm(@ModelAttribute("user") User user) {
-        System.out.println("new user");
         return "adduser";
     }
 
@@ -48,14 +47,9 @@ public class UserController {
 
     @GetMapping("/edit")
     public String editUserForm(@RequestParam("id") Long id, Model model) {
-        Optional<User> userById = userService.findById(id);
-
-        if (userById.isPresent()) {
-            model.addAttribute("user", userById.get());
+        User user = userService.findById(id);
+            model.addAttribute("user", userService.findById(id));
             return "edituser";
-        } else {
-            return "redirect:/users";
-        }
     }
 
     @PostMapping("/edit")
