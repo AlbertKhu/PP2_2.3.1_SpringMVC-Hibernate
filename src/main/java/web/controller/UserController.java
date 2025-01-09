@@ -43,7 +43,7 @@ public class UserController {
         }
 
         userService.addUser(user);
-        return "redirect:/users";
+        return "redirect:/users/users";
     }
 
     @GetMapping("/edit")
@@ -67,12 +67,12 @@ public class UserController {
         }
 
         userService.editUser(user);
-        return "redirect:/users";
+        return "redirect:/users/users";
     }
 
     @PostMapping("/delete")
     public String deleteUser(@RequestParam("id") Long id) {
         userService.deleteUser(id);
-        return "redirect:/users";
+        return "redirect:/users/users";
     }
 }
