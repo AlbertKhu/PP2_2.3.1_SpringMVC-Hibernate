@@ -22,7 +22,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping(value = "/users")
     public String getAllUsers(Model model) {
         List<User> users = userService.getUsers();
         model.addAttribute("users", users);
@@ -30,7 +30,8 @@ public class UserController {
     }
 
     @GetMapping("/new")
-    public String createUserForm(@ModelAttribute("user") User user) {
+    public String createUserForm(Model model) {
+        model.addAttribute("user", new User());
         return "adduser";
     }
 
@@ -47,9 +48,15 @@ public class UserController {
 
     @GetMapping("/edit")
     public String editUserForm(@RequestParam("id") Long id, Model model) {
-        User user = userService.findById(id);
-            model.addAttribute("user", userService.findById(id));
+        Optional<Optional<User>> foundUser = Optional.ofNullable(userService.findById(id));
+
+        if (foundUser.isPresent()) {
+            model.addAttribute("user", foundUser.get());
             return "edituser";
+        } else {
+            model.addAttribute("errorMessage", "Пользователь с таким ID не найден");
+            return "error";
+        }
     }
 
     @PostMapping("/edit")
@@ -69,4 +76,3 @@ public class UserController {
         return "redirect:/users";
     }
 }
-

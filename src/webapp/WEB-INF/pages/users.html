@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Users</title>
@@ -13,28 +12,29 @@
         <th>ID</th>
         <th>Name</th>
         <th>Surname</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
-    <tr var="user" items="${users}">
     <tr th:each="user : ${users}">
         <td th:text="${user.id}"></td>
         <td th:text="${user.name}"></td>
         <td th:text="${user.surname}"></td>
         <td>
-            <form th:action="@{/users/edit}">
-                <button type="submit" th:name="id" th:value="${user.id}">Edit</button>
+            <!-- Форма для редактирования -->
+            <form action="#" th:action="@{/users/edit}" th:method="get">
+                <input type="hidden" th:name="id" th:value="${user.id}"/>
+                <button type="submit">Edit</button>
             </form>
-        </td>
-        <td>
+            <!-- Форма для удаления -->
             <form method="post" th:action="@{/users/delete}">
-                <button type="submit" th:name="id" th:value="${user.id}">Delete</button>
+                <input type="hidden" th:name="id" th:value="${user.id}"/>
+                <button type="submit">Delete</button>
             </form>
         </td>
-    </tr>
     </tr>
     </tbody>
 </table>
-<a href="/spring_mvc_war_exploded/users/new">Create new user</a>
+<a href="/users/new">Create new user</a>
 </body>
 </html>

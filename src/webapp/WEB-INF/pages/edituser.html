@@ -1,21 +1,28 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Edit user</title>
+    <title>Edit User</title>
 </head>
 <body>
-<form th:action="@{/users/edit}" th:object="${user}" method="POST">
-    <input name="id" th:field="*{id}" th:value="${user.id}" hidden="hidden">
-    <label for="name">Name</label>
-    <input type="text" id="name" th:field="*{name}" th:value="${user.name}" required>
-    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name error</div>
-    </br>
-    <label for="surname">Surname</label>
-    <input type="text" id="surname" th:field="*{surname}" th:value="${user.surname}" required>
-    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Name error</div>
-    </br>
-    <button type="submit">update user</button>
+<form action="#" th:action="@{/users/edit}" th:object="${user}" method="post">
+    <!-- Hidden input для передачи ID -->
+    <input type="hidden" th:field="*{id}" />
+
+    <!-- Поле для имени -->
+    <label for="name">Name:</label>
+    <input type="text" id="name" th:field="*{name}" required />
+    <span class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+    <br/>
+
+    <!-- Поле для фамилии -->
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" th:field="*{surname}" required />
+    <span class="error-message" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+    <br/>
+
+    <!-- Кнопка отправки формы -->
+    <button type="submit">Update User</button>
 </form>
 </body>
+</html>
